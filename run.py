@@ -214,3 +214,45 @@ def edit_targets():
 
     print(updated_targets)
     print("Targets updated!")
+
+
+#Part Four:
+
+def view_previous_weeks():
+    """
+    Calculates and displays average times for each exercise for the last four whole weeks
+    """
+    #Currently just cardio, add options for weights and swimming
+    #Add an option to ask the user which exercise they want to view
+    #also refactor the code to just use the exercise name instead of writing out similar code three times
+
+    minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
+
+    this_week = datetime.now().isocalendar()[1]
+
+    cardio_one_week_ago = []
+    cardio_two_weeks_ago = []
+    cardio_three_weeks_ago = []
+    cardio_four_weeks_ago = []
+
+    for row in minutes_data:
+        if row[5] == this_week - 1:
+            cardio_one_week_ago.append(row[0])
+        elif row[5] == this_week - 2:
+            cardio_two_weeks_ago.append(row[0])
+        elif row[5] == this_week - 3:
+            cardio_three_weeks_ago.append(row[0])
+        elif row[5] == this_week - 4:
+            cardio_four_weeks_ago.append(row[0])
+        else:
+            pass
+        
+    cardio_one_sum = sum(cardio_one_week_ago)
+    cardio_two_sum = sum(cardio_two_weeks_ago)
+    cardio_three_sum = sum(cardio_three_weeks_ago)
+    cardio_four_sum = sum(cardio_four_weeks_ago)
+
+    print(f"Last week you did {cardio_one_sum} minutes of cardio")
+    print(f"Two weeks ago you did {cardio_two_sum} minutes of cardio")
+    print(f"Three weeks ago you did {cardio_three_sum} minutes of cardio")
+    print(f"Four weeks ago you did {cardio_four_sum} minutes of cardio")
