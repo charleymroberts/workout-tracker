@@ -216,7 +216,7 @@ def edit_targets():
     print("Targets updated!")
 
 
-#Part Four:
+#Part Four: view minutes completed for each exercise over the last four weeks
 
 def view_previous_weeks():
     """
@@ -256,3 +256,28 @@ def view_previous_weeks():
     print(f"Two weeks ago you did {cardio_two_sum} minutes of cardio")
     print(f"Three weeks ago you did {cardio_three_sum} minutes of cardio")
     print(f"Four weeks ago you did {cardio_four_sum} minutes of cardio")
+
+
+def close_program():
+    print(f"Exiting workout tracker. See you soon!") #why can't it see the username from here
+
+
+def show_options():
+
+    while True:
+        print("What would you like to do today? Please select a number:")
+        option = input("1. Enter minutes / 2. View progress this week / 3. Update targets / 4. View last four weeks / 5. Exit ")
+
+        if option == "1":
+            enter_exercise_data()
+        elif option == "2":
+            view_progress_this_week()
+        elif option == "3":
+            edit_targets()
+        elif option == "4":
+            view_previous_weeks()
+        elif option == "5":
+            close_program()
+            break
+        else:
+            print("Please enter a number 1-5")
