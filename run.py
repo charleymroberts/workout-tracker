@@ -97,7 +97,7 @@ def enter_exercise_data():
         if restart == "y":
             add_datetime()
             add_data_to_worksheet()
-            print(f"Minutes added successfully. See you tomorrow, {username}!")
+            print(f"Minutes added successfully!\n") 
             break
 
 
@@ -131,7 +131,6 @@ def view_progress_this_week():
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
     this_week = datetime.now().isocalendar()[1] 
-
     cardio_this_week = []
     weights_this_week = []
     swimming_this_week = []
@@ -152,31 +151,31 @@ def view_progress_this_week():
     weights_target = most_recent_targets[1]
     swimming_target = most_recent_targets[2]
 
-    cardio_minutes_to_go = float(cardio_target) - float(cardio_this_week)
+    cardio_minutes_to_go = cardio_target - cardio_this_week
     
-    if float(cardio_target) > float(cardio_this_week):
-        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target is {cardio_target} minutes. You have {cardio_minutes_to_go} minutes to go. Keep it up!\n")
+    if cardio_target > cardio_this_week:
+        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target is {cardio_target} minutes. You have {cardio_minutes_to_go} minutes to go. Keep it up!")
     else:
-        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target was {cardio_target} minutes. Well done!\n")
+        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target was {cardio_target} minutes. Well done!")
 
 
-    weights_minutes_to_go = float(weights_target) - float(weights_this_week)
+    weights_minutes_to_go = weights_target - weights_this_week
 
-    if float(weights_target) > float(weights_this_week):
+    if weights_target > weights_this_week:
         print(f"You have done {weights_this_week} minutes of weight training so far this week. Your target is {weights_target} minutes. You have {weights_minutes_to_go} minutes to go. Keep it up!")
     else:
         print(f"You have done {weights_this_week} minutes of weight training this week. Your target was {weights_target} minutes. Well done!")
 
 
-    swimming_minutes_to_go = float(swimming_target) - (float(swimming_this_week))
+    swimming_minutes_to_go = swimming_target - swimming_this_week
 
-    if float(swimming_target) > float(swimming_this_week):
-        print(f"You have done {swimming_this_week} minutes of swimming so far this week. Your target is {swimming_target} minutes. You have {swimming_minutes_to_go} minutes to go. Keep it up!")
+    if swimming_target > swimming_this_week:
+        print(f"You have done {swimming_this_week} minutes of swimming so far this week. Your target is {swimming_target} minutes. You have {swimming_minutes_to_go} minutes to go. Keep it up!\n")
     else:
-        print(f"You have done {swimming_this_week} minutes of swimming this week. Your target was {swimming_target} minutes. Well done!")
+        print(f"You have done {swimming_this_week} minutes of swimming this week. Your target was {swimming_target} minutes. Well done!\n")
 
 
-#Part three: Add new targets
+#Option Three: Add new targets
 
 def print_current_targets():
     '''
@@ -214,12 +213,10 @@ def edit_targets():
     updated_targets.append(new_swimming_target)
 
     targets.append_row(updated_targets)
-
-    print(updated_targets)
     print("Targets updated!")
 
 
-#Part Four: view minutes completed for each exercise over the last four weeks
+#Option Four: view minutes completed for each exercise over the last four weeks
 
 def view_previous_weeks():
     """
@@ -261,12 +258,16 @@ def view_previous_weeks():
     print(f"Four weeks ago you did {cardio_four_sum} minutes of cardio")
 
 
+#Option Five: Exit program
+
 def close_program():
     '''
     Ends program
     '''
     print(f"Exiting workout tracker. See you soon!") #why can't it see the username from here
 
+
+#User menu:
 
 def show_options():
     '''
@@ -290,7 +291,7 @@ def show_options():
         else:
             print("Please enter a number 1-5")
 
-#to run program
+#Main function to run program:
 
 def main():
     username = greet_user()
