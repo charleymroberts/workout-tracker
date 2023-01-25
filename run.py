@@ -281,3 +281,11 @@ def show_options():
             break
         else:
             print("Please enter a number 1-5")
+
+#to run program
+
+def main():
+    username = greet_user()
+    show_options()
+
+main()
