@@ -125,7 +125,9 @@ Converts the dictionary values to a list and pushes this to the Google sheet 'mi
 #Option Two: view this week's progress against targets
 
 def view_progress_this_week():
-
+'''
+Calculates how many minutes the user has entered for each exercise during the current week and compares the total with their targets
+'''
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
     this_week = datetime.now().isocalendar()[1] 
@@ -173,3 +175,42 @@ def view_progress_this_week():
     else:
         print(f"You have done {swimming_this_week} minutes of swimming this week. Your target was {swimming_target} minutes. Well done!")
 
+
+#Part three: Add new targets
+
+def print_current_targets():
+    targets = SHEET.worksheet("weekly_targets").get_values()
+    headings = targets[0]
+    most_recent_targets = targets[-1]
+    
+    targets_list = zip(headings, most_recent_targets)
+    print(f"Your current weekly targets are: ") 
+
+    print(targets[0][0].capitalize() + ": " + targets[-1][0] + " minutes per week") #cardio
+    print(targets[0][1].capitalize() + ": " + targets[-1][1] + " minutes per week") #weights 
+    print(targets[0][2].capitalize() + ": " + targets[-1][2] + " minutes per week") #swimming 
+
+
+def edit_targets():
+    """
+    Takes user input for new targets, adds them to a list and appends them to the 'targets' spreadsheet
+    """
+    print_current_targets()
+
+    updated_targets = []
+
+    print("Please enter your new weekly targets for each exercise:")
+    new_cardio_target = input("New cardio target (minutes per week): ")
+    new_weights_target = input("New weights target (minutes per week): ")
+    new_swimming_target = input("New swimming target (minutes per week): ")
+
+    #put something here to make sure the user enters a number
+
+    updated_targets.append(new_cardio_target)
+    updated_targets.append(new_weights_target)
+    updated_targets.append(new_swimming_target)
+
+    targets.append_row(updated_targets)
+
+    print(updated_targets)
+    print("Targets updated!")
