@@ -33,6 +33,8 @@ Collects the user's name and displays personalised greeting
     return username
 
 
+#Option One: Add minutes
+
 def enter_exercise_type():
 '''
 Collect input from user about which type of exercise they want to add minutes to
@@ -118,3 +120,56 @@ Converts the dictionary values to a list and pushes this to the Google sheet 'mi
 '''
     new_data = list(entry.values())
     minutes.append_row(new_data)
+
+
+#Option Two: view this week's progress against targets
+
+def view_progress_this_week():
+
+    minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
+
+    this_week = datetime.now().isocalendar()[1] 
+
+    cardio_this_week = []
+    weights_this_week = []
+    swimming_this_week = []
+
+    for row in minutes_data:
+        if row[5] == this_week:
+            cardio_this_week.append(row[0])
+            weights_this_week.append(row[1])
+            swimming_this_week.append(row[2])
+
+    cardio_this_week = (sum(cardio_this_week))
+    weights_this_week = (sum(weights_this_week))
+    swimming_this_week = (sum(swimming_this_week))
+
+    targets = SHEET.worksheet("weekly_targets").get_values(value_render_option=ValueRenderOption.unformatted)
+    most_recent_targets = targets[-1]
+    cardio_target = most_recent_targets[0]
+    weights_target = most_recent_targets[1]
+    swimming_target = most_recent_targets[2]
+
+    cardio_minutes_to_go = float(cardio_target) - float(cardio_this_week)
+    
+    if float(cardio_target) > float(cardio_this_week):
+        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target is {cardio_target} minutes. You have {cardio_minutes_to_go} minutes to go. Keep it up!\n")
+    else:
+        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target was {cardio_target} minutes. Well done!\n")
+
+
+    weights_minutes_to_go = float(weights_target) - float(weights_this_week)
+
+    if float(weights_target) > float(weights_this_week):
+        print(f"You have done {weights_this_week} minutes of weight training so far this week. Your target is {weights_target} minutes. You have {weights_minutes_to_go} minutes to go. Keep it up!")
+    else:
+        print(f"You have done {weights_this_week} minutes of weight training this week. Your target was {weights_target} minutes. Well done!")
+
+
+    swimming_minutes_to_go = float(swimming_target) - (float(swimming_this_week))
+
+    if float(swimming_target) > float(swimming_this_week):
+        print(f"You have done {swimming_this_week} minutes of swimming so far this week. Your target is {swimming_target} minutes. You have {swimming_minutes_to_go} minutes to go. Keep it up!")
+    else:
+        print(f"You have done {swimming_this_week} minutes of swimming this week. Your target was {swimming_target} minutes. Well done!")
+
