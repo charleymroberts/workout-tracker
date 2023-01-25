@@ -25,9 +25,9 @@ Dictionary to hold number of minutes inputted by user, which is converted to a l
 '''
 
 def greet_user():
-'''
-Collects the user's name and displays personalised greeting
-'''
+    '''
+    Collects the user's name and displays personalised greeting
+    '''
     username = input("Please enter your name: ")
     print(f"Hi, {username}, good to see you today!\n")
     return username
@@ -36,9 +36,9 @@ Collects the user's name and displays personalised greeting
 #Option One: Add minutes
 
 def enter_exercise_type():
-'''
-Collect input from user about which type of exercise they want to add minutes to
-'''
+    '''
+    Collect input from user about which type of exercise they want to add minutes to
+    '''
     while True:
         exercise = input("Which exercise did you do today? (cardio/weights/swimming): ").lower()
         if exercise == "cardio" or exercise == "weights" or exercise == "swimming":
@@ -48,9 +48,9 @@ Collect input from user about which type of exercise they want to add minutes to
 
 
 def enter_minutes():
-'''
-Collects user input for how many minutes they did, and displays a message depending on the number of minutes
-'''
+    '''
+    Collects user input for how many minutes they did, and displays a message depending on the number of minutes
+    '''
     while True:
         try:
             minutes = float(input("How many minutes did you do?: "))
@@ -71,9 +71,9 @@ Collects user input for how many minutes they did, and displays a message depend
 
 
 def add_data(exercise, minutes):
-'''
-Adds the number of minutes to the correct exercise in the 'entry' dictionary
-'''
+    '''
+    Adds the number of minutes to the correct exercise in the 'entry' dictionary
+    '''
     if exercise == "cardio":
         entry['cardio'] = minutes
     elif exercise == "weights":
@@ -85,9 +85,9 @@ Adds the number of minutes to the correct exercise in the 'entry' dictionary
 
 
 def enter_exercise_data():
-'''
-Asks the user if they want to add more data, and keeps offering this option until the user confirms they have finished
-'''
+    '''
+    Asks the user if they want to add more data, and keeps offering this option until the user confirms they have finished
+    '''
     while True: 
         exercise = enter_exercise_type()
         minutes = enter_minutes()
@@ -102,9 +102,9 @@ Asks the user if they want to add more data, and keeps offering this option unti
 
 
 def add_datetime():
-'''
-Adds today's date, day of the week and week number to the entry dictionary
-'''
+    '''
+    Adds today's date, day of the week and week number to the entry dictionary
+    '''
     the_date = datetime.now().date()
     the_day = datetime.now().weekday() 
     this_week = datetime.now().isocalendar()[1]
@@ -115,9 +115,9 @@ Adds today's date, day of the week and week number to the entry dictionary
 
 
 def add_data_to_worksheet():
-'''
-Converts the dictionary values to a list and pushes this to the Google sheet 'minutes' as the most recently added row
-'''
+    '''
+    Converts the dictionary values to a list and pushes this to the Google sheet 'minutes' as the most recently added row
+    '''
     new_data = list(entry.values())
     minutes.append_row(new_data)
 
@@ -125,9 +125,9 @@ Converts the dictionary values to a list and pushes this to the Google sheet 'mi
 #Option Two: view this week's progress against targets
 
 def view_progress_this_week():
-'''
-Calculates how many minutes the user has entered for each exercise during the current week and compares the total with their targets
-'''
+    '''
+    Calculates how many minutes the user has entered for each exercise during the current week and compares the total with their targets
+    '''
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
     this_week = datetime.now().isocalendar()[1] 
@@ -179,6 +179,9 @@ Calculates how many minutes the user has entered for each exercise during the cu
 #Part three: Add new targets
 
 def print_current_targets():
+    '''
+    Displays user's current weekly targets
+    '''
     targets = SHEET.worksheet("weekly_targets").get_values()
     headings = targets[0]
     most_recent_targets = targets[-1]
@@ -259,11 +262,16 @@ def view_previous_weeks():
 
 
 def close_program():
+    '''
+    Ends program
+    '''
     print(f"Exiting workout tracker. See you soon!") #why can't it see the username from here
 
 
 def show_options():
-
+    '''
+    Presents a menu for user to select which part of the program they want to run
+    '''
     while True:
         print("What would you like to do today? Please select a number:")
         option = input("1. Enter minutes / 2. View progress this week / 3. Update targets / 4. View last four weeks / 5. Exit ")
