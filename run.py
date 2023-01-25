@@ -152,7 +152,7 @@ def view_progress_this_week():
     swimming_target = most_recent_targets[2]
 
     cardio_minutes_to_go = cardio_target - cardio_this_week
-    
+
     if cardio_target > cardio_this_week:
         print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target is {cardio_target} minutes. You have {cardio_minutes_to_go} minutes to go. Keep it up!")
     else:
@@ -198,16 +198,18 @@ def edit_targets():
     Takes user input for new targets, adds them to a list and appends them to the 'targets' spreadsheet
     """
     print_current_targets()
+    print("Please enter your new weekly targets for each exercise: \n")
+    #put something here to make sure the user enters a number
+    while True:
+        try: 
+            new_cardio_target = int(input("New cardio target (minutes per week): "))
+            new_weights_target = int(input("New weights target (minutes per week): ")) 
+            new_swimming_target = int(input("New swimming target (minutes per week): "))
+            break 
+        except ValueError:
+            print("Please enter a number") #this sends it back to the top of the try statement
 
     updated_targets = []
-
-    print("Please enter your new weekly targets for each exercise:")
-    new_cardio_target = input("New cardio target (minutes per week): ")
-    new_weights_target = input("New weights target (minutes per week): ")
-    new_swimming_target = input("New swimming target (minutes per week): ")
-
-    #put something here to make sure the user enters a number
-
     updated_targets.append(new_cardio_target)
     updated_targets.append(new_weights_target)
     updated_targets.append(new_swimming_target)
