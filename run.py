@@ -199,18 +199,30 @@ def edit_targets():
     """
     print_current_targets()
     print("Please enter your new weekly targets for each exercise: \n")
-    #put something here to make sure the user enters a number
+
     while True:
         try: 
             new_cardio_target = int(input("New cardio target (minutes per week): "))
+            break 
+        except ValueError:
+            print("Please enter a number") 
+
+    while True:
+        try: 
             new_weights_target = int(input("New weights target (minutes per week): ")) 
+            break 
+        except ValueError:
+            print("Please enter a number")
+
+    while True:
+        try: 
             new_swimming_target = int(input("New swimming target (minutes per week): "))
             break 
         except ValueError:
-            print("Please enter a number") #this sends it back to the top of the try statement
+            print("Please enter a number") 
 
     updated_targets = []
-    updated_targets.append(new_cardio_target)
+    updated_targets.append(new_cardio_target) 
     updated_targets.append(new_weights_target)
     updated_targets.append(new_swimming_target)
 
@@ -224,40 +236,44 @@ def view_previous_weeks():
     """
     Calculates and displays average times for each exercise for the last four whole weeks
     """
-    #Currently just cardio, add options for weights and swimming
-    #Add an option to ask the user which exercise they want to view
-    #also refactor the code to just use the exercise name instead of writing out similar code three times
+
+    exercise = input("Which exercise would you like to view? ")
+
+    if exercise == "cardio": #what if user types something that isn't one of these
+        column_number = 0
+    elif exercise == "weights":
+        column_number = 1
+    elif exercise == "swimming":
+        column_number = 2
 
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
     this_week = datetime.now().isocalendar()[1]
 
-    cardio_one_week_ago = []
-    cardio_two_weeks_ago = []
-    cardio_three_weeks_ago = []
-    cardio_four_weeks_ago = []
+    one_week_ago = []
+    two_weeks_ago = []
+    three_weeks_ago = []
+    four_weeks_ago = [] #also what to do when four weeks ago was last year
 
     for row in minutes_data:
         if row[5] == this_week - 1:
-            cardio_one_week_ago.append(row[0])
+            one_week_ago.append(row[column_number])
         elif row[5] == this_week - 2:
-            cardio_two_weeks_ago.append(row[0])
+            two_weeks_ago.append(row[column_number])
         elif row[5] == this_week - 3:
-            cardio_three_weeks_ago.append(row[0])
+            three_weeks_ago.append(row[column_number])
         elif row[5] == this_week - 4:
-            cardio_four_weeks_ago.append(row[0])
-        else:
-            pass
-        
-    cardio_one_sum = sum(cardio_one_week_ago)
-    cardio_two_sum = sum(cardio_two_weeks_ago)
-    cardio_three_sum = sum(cardio_three_weeks_ago)
-    cardio_four_sum = sum(cardio_four_weeks_ago)
+            four_weeks_ago.append(row[column_number])
 
-    print(f"Last week you did {cardio_one_sum} minutes of cardio")
-    print(f"Two weeks ago you did {cardio_two_sum} minutes of cardio")
-    print(f"Three weeks ago you did {cardio_three_sum} minutes of cardio")
-    print(f"Four weeks ago you did {cardio_four_sum} minutes of cardio")
+    one_sum = sum(one_week_ago)
+    two_sum = sum(two_weeks_ago)
+    three_sum = sum(three_weeks_ago)
+    four_sum = sum(four_weeks_ago)
+
+    print(f"Last week you did {one_sum} minutes of {exercise}")
+    print(f"Two weeks ago you did {two_sum} minutes of {exercise}")
+    print(f"Three weeks ago you did {three_sum} minutes of {exercise}")
+    print(f"Four weeks ago you did {four_sum} minutes of {exercise}")
 
 
 #Option Five: Exit program
