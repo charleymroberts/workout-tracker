@@ -128,51 +128,37 @@ def view_progress_this_week():
     '''
     Calculates how many minutes the user has entered for each exercise during the current week and compares the total with their targets
     '''
-    minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
+    minutes_data = SHEET.worksheet("minutes").get_values(value_render_option=ValueRenderOption.unformatted)
 
     this_week = datetime.now().isocalendar()[1] 
-    cardio_this_week = []
-    weights_this_week = []
-    swimming_this_week = []
+
+    exercise_types = minutes_data[0][0:3] #fetches the exercise names from the headings of the 'minutes' Google sheet
+
+    ex_0_minutes_this_week = [] #list for all the minutes entries for the current week for exercise 0
+    ex_1_minutes_this_week = [] #list for all the minutes entries for the current week for exercise 1
+    ex_2_minutes_this_week = [] #list for all the minutes entries for the current week for exercise 2
 
     for row in minutes_data:
         if row[5] == this_week:
-            cardio_this_week.append(row[0])
-            weights_this_week.append(row[1])
-            swimming_this_week.append(row[2])
+            ex_0_minutes_this_week.append(row[0]) 
+            ex_1_minutes_this_week.append(row[1])
+            ex_2_minutes_this_week.append(row[2])
 
-    cardio_this_week = (sum(cardio_this_week))
-    weights_this_week = (sum(weights_this_week))
-    swimming_this_week = (sum(swimming_this_week))
+    ex_0_total_this_week = (sum(ex_0_minutes_this_week)) #calculates and stores total minutes this week for each exercise
+    ex_1_total_this_week = (sum(ex_1_minutes_this_week))
+    ex_2_total_this_week = (sum(ex_2_minutes_this_week))
+
+    minutes_this_week_list = [ex_0_total_this_week, ex_1_total_this_week, ex_2_total_this_week]
 
     targets = SHEET.worksheet("weekly_targets").get_values(value_render_option=ValueRenderOption.unformatted)
     most_recent_targets = targets[-1]
-    cardio_target = most_recent_targets[0]
-    weights_target = most_recent_targets[1]
-    swimming_target = most_recent_targets[2]
 
-    cardio_minutes_to_go = cardio_target - cardio_this_week
-
-    if cardio_target > cardio_this_week:
-        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target is {cardio_target} minutes. You have {cardio_minutes_to_go} minutes to go. Keep it up!")
-    else:
-        print(f"You have done {cardio_this_week} minutes of cardio so far this week. Your target was {cardio_target} minutes. Well done!")
-
-
-    weights_minutes_to_go = weights_target - weights_this_week
-
-    if weights_target > weights_this_week:
-        print(f"You have done {weights_this_week} minutes of weight training so far this week. Your target is {weights_target} minutes. You have {weights_minutes_to_go} minutes to go. Keep it up!")
-    else:
-        print(f"You have done {weights_this_week} minutes of weight training this week. Your target was {weights_target} minutes. Well done!")
-
-
-    swimming_minutes_to_go = swimming_target - swimming_this_week
-
-    if swimming_target > swimming_this_week:
-        print(f"You have done {swimming_this_week} minutes of swimming so far this week. Your target is {swimming_target} minutes. You have {swimming_minutes_to_go} minutes to go. Keep it up!\n")
-    else:
-        print(f"You have done {swimming_this_week} minutes of swimming this week. Your target was {swimming_target} minutes. Well done!\n")
+    for exercise, minutes, target in zip(exercise_types, minutes_this_week_list, most_recent_targets):
+        minutes_to_go = target - minutes
+        if target > minutes:
+            print(f"You have done {minutes} of {exercise} this week. Your target is {target}. You have {minutes_to_go} minutes to go. Keep it up! \n")
+        else:
+            print(f"You have done {minutes} of {exercise} this week. Your target was {target}. Well done! \n")
 
 
 #Option Three: Add new targets
@@ -237,7 +223,7 @@ def view_previous_weeks():
     Calculates and displays average times for each exercise for the last four whole weeks
     """
 
-    exercise = input("Which exercise would you like to view? ")
+    exercise = input("Which exercise would you like to view? (cardio/weights/swimming) ")
 
     if exercise == "cardio": #what if user types something that isn't one of these
         column_number = 0
@@ -245,6 +231,8 @@ def view_previous_weeks():
         column_number = 1
     elif exercise == "swimming":
         column_number = 2
+    else:
+        print("Please enter cardio, weights or swimming")
 
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
