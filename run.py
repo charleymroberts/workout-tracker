@@ -170,15 +170,12 @@ def print_current_targets():
     targets = SHEET.worksheet("weekly_targets").get_values()
     headings = targets[0]
     most_recent_targets = targets[-1]
-    
-    targets_list = zip(headings, most_recent_targets)
-    print(f"Your current weekly targets are: ") 
 
-    print(targets[0][0].capitalize() + ": " + targets[-1][0] + " minutes per week") #cardio
-    print(targets[0][1].capitalize() + ": " + targets[-1][1] + " minutes per week") #weights 
-    print(targets[0][2].capitalize() + ": " + targets[-1][2] + " minutes per week") #swimming 
+    print("Your current weekly targets are: ") 
+    for heading, target in zip(headings, most_recent_targets):
+        print(f"{(heading.capitalize())}: {target} minutes per week")
 
-
+        
 def edit_targets():
     """
     Takes user input for new targets, adds them to a list and appends them to the 'targets' spreadsheet
