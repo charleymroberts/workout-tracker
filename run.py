@@ -156,9 +156,9 @@ def view_progress_this_week():
     for exercise, minutes, target in zip(exercise_types, minutes_this_week_list, most_recent_targets):
         minutes_to_go = target - minutes
         if target > minutes:
-            print(f"You have done {minutes} of {exercise} this week. Your target is {target}. You have {minutes_to_go} minutes to go. Keep it up! \n")
+            print(f"You have done {minutes} minutes of {exercise} this week. Your target is {target}. You have {minutes_to_go} minutes to go. Keep it up! \n")
         else:
-            print(f"You have done {minutes} of {exercise} this week. Your target was {target}. Well done! \n")
+            print(f"You have done {minutes} minutes of {exercise} this week. Your target was {target}. Well done! \n")
 
 
 #Option Three: Add new targets
@@ -220,7 +220,7 @@ def view_previous_weeks():
     Calculates and displays average times for each exercise for the last four whole weeks
     """
 
-    exercise = input("Which exercise would you like to view? (cardio/weights/swimming) \n")
+    exercise = input("Which exercise would you like to view? (cardio/weights/swimming) \n").lower()
 
     while True:
         if exercise == "cardio": 
