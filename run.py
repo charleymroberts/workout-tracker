@@ -282,7 +282,7 @@ def show_options():
     '''
     while True:
         print("What would you like to do today? Please select a number:")
-        option = input("1. Enter minutes \n 2. View progress this week \n 3. Update targets \n 4. View last four weeks \n 5. Exit \n")
+        option = input("1. Enter minutes \n2. View progress this week \n3. Update targets \n4. View last four weeks \n5. Exit \n")
 
         if option == "1":
             enter_exercise_data()
