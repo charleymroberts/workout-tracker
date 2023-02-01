@@ -28,9 +28,9 @@ def greet_user():
     '''
     Collects the user's name and displays personalised greeting
     '''
-    username = input("Please enter your name: ")
+    global username #this is set to global so that the close_program function can access i
+    username = input("Please enter your name: \n")
     print(f"Hi, {username}, good to see you today!\n")
-    return username
 
 
 #Option One: Add minutes
@@ -40,7 +40,7 @@ def enter_exercise_type():
     Collect input from user about which type of exercise they want to add minutes to
     '''
     while True:
-        exercise = input("Which exercise did you do today? (cardio/weights/swimming): ").lower()
+        exercise = input("Which exercise did you do today? (cardio/weights/swimming): \n").lower()
         if exercise == "cardio" or exercise == "weights" or exercise == "swimming":
             return exercise
         else:
@@ -53,7 +53,7 @@ def enter_minutes():
     '''
     while True:
         try:
-            minutes = float(input("How many minutes did you do?: "))
+            minutes = float(input("How many minutes did you do?: \n"))
             break
         except ValueError:
             print("Please enter a number")
@@ -185,21 +185,21 @@ def edit_targets():
 
     while True:
         try: 
-            new_cardio_target = int(input("New cardio target (minutes per week): "))
+            new_cardio_target = int(input("New cardio target (minutes per week): \n"))
             break 
         except ValueError:
             print("Please enter a number") 
 
     while True:
         try: 
-            new_weights_target = int(input("New weights target (minutes per week): ")) 
+            new_weights_target = int(input("New weights target (minutes per week): \n")) 
             break 
         except ValueError:
             print("Please enter a number")
 
     while True:
         try: 
-            new_swimming_target = int(input("New swimming target (minutes per week): "))
+            new_swimming_target = int(input("New swimming target (minutes per week): \n"))
             break 
         except ValueError:
             print("Please enter a number") 
@@ -220,16 +220,21 @@ def view_previous_weeks():
     Calculates and displays average times for each exercise for the last four whole weeks
     """
 
-    exercise = input("Which exercise would you like to view? (cardio/weights/swimming) ")
+    exercise = input("Which exercise would you like to view? (cardio/weights/swimming) \n")
 
-    if exercise == "cardio": #what if user types something that isn't one of these
-        column_number = 0
-    elif exercise == "weights":
-        column_number = 1
-    elif exercise == "swimming":
-        column_number = 2
-    else:
-        print("Please enter cardio, weights or swimming")
+    while True:
+        if exercise == "cardio": 
+            column_number = 0
+            break
+        elif exercise == "weights":
+            column_number = 1
+            break
+        elif exercise == "swimming":
+            column_number = 2
+            break
+        else:
+            print("Please enter cardio, weights or swimming")
+            exercise = input("Which exercise would you like to view? (cardio/weights/swimming) \n")
 
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
@@ -267,7 +272,7 @@ def close_program():
     '''
     Ends program
     '''
-    print(f"Exiting workout tracker. See you soon!") #why can't it see the username from here
+    print(f"Exiting workout tracker. See you soon, {username}!") 
 
 
 #User menu:
@@ -278,7 +283,7 @@ def show_options():
     '''
     while True:
         print("What would you like to do today? Please select a number:")
-        option = input("1. Enter minutes / 2. View progress this week / 3. Update targets / 4. View last four weeks / 5. Exit ")
+        option = input("1. Enter minutes / 2. View progress this week / 3. Update targets / 4. View last four weeks / 5. Exit \n")
 
         if option == "1":
             enter_exercise_data()
