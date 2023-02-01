@@ -28,7 +28,7 @@ def greet_user():
     '''
     Collects the user's name and displays personalised greeting
     '''
-    global username #this is set to global so that the close_program function can access i
+    global username #this is set to global so that the close_program function can access it
     username = input("Please enter your name: \n")
     print(f"Hi, {username}, good to see you today!\n")
 
@@ -156,9 +156,9 @@ def view_progress_this_week():
     for exercise, minutes, target in zip(exercise_types, minutes_this_week_list, most_recent_targets):
         minutes_to_go = target - minutes
         if target > minutes:
-            print(f"You have done {minutes} minutes of {exercise} this week. Your target is {target}. You have {minutes_to_go} minutes to go. Keep it up! \n")
+            print(f"You have done {minutes} minutes of {exercise} this week. \nYour target is {target}. You have {minutes_to_go} minutes to go. Keep it up! \n")
         else:
-            print(f"You have done {minutes} minutes of {exercise} this week. Your target was {target}. Well done! \n")
+            print(f"You have done {minutes} minutes of {exercise} this week. \nYour target was {target}. Well done! \n")
 
 
 #Option Three: Add new targets
@@ -282,7 +282,7 @@ def show_options():
     '''
     while True:
         print("What would you like to do today? Please select a number:")
-        option = input("1. Enter minutes / 2. View progress this week / 3. Update targets / 4. View last four weeks / 5. Exit \n")
+        option = input("1. Enter minutes \n 2. View progress this week \n 3. Update targets \n 4. View last four weeks \n 5. Exit \n")
 
         if option == "1":
             enter_exercise_data()
