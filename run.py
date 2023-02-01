@@ -234,7 +234,6 @@ def view_previous_weeks():
             break
         else:
             print("Please enter cardio, weights or swimming")
-            exercise = input("Which exercise would you like to view? (cardio/weights/swimming) \n")
 
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
