@@ -19,7 +19,13 @@ SHEET = GSPREAD_CLIENT.open('workout_tracker')
 minutes = SHEET.worksheet('minutes')
 targets = SHEET.worksheet('weekly_targets')
 
-entry = {'cardio': 0, 'weights': 0, 'swimming': 0, 'todays_date': 0, 'day_of_week': '', 'week_number': 0}
+minutes_data = SHEET.worksheet('minutes').get_values(value_render_option=ValueRenderOption.unformatted) 
+targets_data = SHEET.worksheet("weekly_targets").get_values(value_render_option=ValueRenderOption.unformatted)
+
+exercise_types = minutes_data[0][0:3] #fetches the exercise names from the headings of the 'minutes' Google sheet as a list
+exercise_names = ', '.join(exercise_types) #string of the exercise names
+
+entry = {'ex0': 0, 'ex1': 0, 'ex2': 0, 'todays_date': 0, 'day_of_week': '', 'week_number': 0} 
 '''
 Dictionary to hold number of minutes inputted by user, which is converted to a list and pushed to Google sheet by the add_data_to_worksheet function
 '''
@@ -40,11 +46,11 @@ def enter_exercise_type():
     Collect input from user about which type of exercise they want to add minutes to
     '''
     while True:
-        exercise = input("Which exercise did you do today? (cardio/weights/swimming): \n").lower()
-        if exercise == "cardio" or exercise == "weights" or exercise == "swimming":
+        exercise = input(f"Which exercise did you do today? ({exercise_names}): \n").lower()
+        if exercise in exercise_types:
             return exercise
         else:
-            print("Please choose either cardio, weights or swimming")
+            print(f"Please choose one of: {exercise_names}")
 
 
 def enter_minutes():
@@ -74,12 +80,12 @@ def add_data(exercise, minutes):
     '''
     Adds the number of minutes to the correct exercise in the 'entry' dictionary
     '''
-    if exercise == "cardio":
-        entry['cardio'] = minutes
-    elif exercise == "weights":
-        entry['weights'] = minutes
-    elif exercise == "swimming":
-        entry['swimming'] = minutes
+    if exercise == exercise_types[0]:
+        entry['ex0'] = minutes
+    elif exercise == exercise_types[1]:
+        entry['ex1'] = minutes
+    elif exercise == exercise_types[2]:
+        entry['ex2'] = minutes
     else:
         print("Error, please try again")
 
@@ -128,11 +134,8 @@ def view_progress_this_week():
     '''
     Calculates how many minutes the user has entered for each exercise during the current week and compares the total with their targets
     '''
-    minutes_data = SHEET.worksheet("minutes").get_values(value_render_option=ValueRenderOption.unformatted)
-
+   
     this_week = datetime.now().isocalendar()[1] 
-
-    exercise_types = minutes_data[0][0:3] #fetches the exercise names from the headings of the 'minutes' Google sheet
 
     ex_0_minutes_this_week = [] #list for all the minutes entries for the current week for exercise 0
     ex_1_minutes_this_week = [] #list for all the minutes entries for the current week for exercise 1
@@ -150,8 +153,7 @@ def view_progress_this_week():
 
     minutes_this_week_list = [ex_0_total_this_week, ex_1_total_this_week, ex_2_total_this_week]
 
-    targets = SHEET.worksheet("weekly_targets").get_values(value_render_option=ValueRenderOption.unformatted)
-    most_recent_targets = targets[-1]
+    most_recent_targets = targets_data[-1]
 
     for exercise, minutes, target in zip(exercise_types, minutes_this_week_list, most_recent_targets):
         minutes_to_go = target - minutes
@@ -167,47 +169,31 @@ def print_current_targets():
     '''
     Displays user's current weekly targets
     '''
-    targets = SHEET.worksheet("weekly_targets").get_values()
-    headings = targets[0]
-    most_recent_targets = targets[-1]
+    most_recent_targets = targets_data[-1]
 
     print("Your current weekly targets are: ") 
-    for heading, target in zip(headings, most_recent_targets):
-        print(f"{(heading.capitalize())}: {target} minutes per week")
+    for exercise, target in zip(exercise_types, most_recent_targets):
+        print(f"{(exercise.capitalize())}: {target} minutes per week")
 
         
 def edit_targets():
     """
-    Takes user input for new targets, adds them to a list and appends them to the 'targets' spreadsheet
+    Takes user input for new targets, adds them to a list and appends it to the 'targets' spreadsheet
     """
+
+    updated_targets = [] 
+
     print_current_targets()
     print("Please enter your new weekly targets for each exercise: \n")
 
-    while True:
-        try: 
-            new_cardio_target = int(input("New cardio target (minutes per week): \n"))
-            break 
-        except ValueError:
-            print("Please enter a number") 
-
-    while True:
-        try: 
-            new_weights_target = int(input("New weights target (minutes per week): \n")) 
-            break 
-        except ValueError:
-            print("Please enter a number")
-
-    while True:
-        try: 
-            new_swimming_target = int(input("New swimming target (minutes per week): \n"))
-            break 
-        except ValueError:
-            print("Please enter a number") 
-
-    updated_targets = []
-    updated_targets.append(new_cardio_target) 
-    updated_targets.append(new_weights_target)
-    updated_targets.append(new_swimming_target)
+    for exercise in exercise_types: 
+        while True:
+            try:
+                new_target = int(input(f"New {exercise} target (minutes per week): \n")) 
+                updated_targets.append(new_target)  
+                break
+            except ValueError:
+                print("Please enter a number")
 
     targets.append_row(updated_targets)
     print("Targets updated!")
@@ -220,20 +206,19 @@ def view_previous_weeks():
     Calculates and displays average times for each exercise for the last four whole weeks
     """
 
-    exercise = input("Which exercise would you like to view? (cardio/weights/swimming) \n").lower()
-
     while True:
-        if exercise == "cardio": 
+        exercise = input(f"Which exercise would you like to view? ({exercise_names}) \n").lower()
+        if exercise == exercise_types[0]:
             column_number = 0
             break
-        elif exercise == "weights":
+        elif exercise == exercise_types[1]:
             column_number = 1
             break
-        elif exercise == "swimming":
+        elif exercise == exercise_types[2]:
             column_number = 2
             break
         else:
-            print("Please enter cardio, weights or swimming")
+            print(f"Please enter one of: {exercise_names}") 
 
     minutes_data = minutes.get_values(value_render_option=ValueRenderOption.unformatted)
 
