@@ -19,10 +19,23 @@ SHEET = GSPREAD_CLIENT.open('workout_tracker')
 minutes = SHEET.worksheet('minutes')
 targets = SHEET.worksheet('weekly_targets')
 
-minutes_data = SHEET.worksheet('minutes').get_values(
-    value_render_option=ValueRenderOption.unformatted)
-targets_data = SHEET.worksheet("weekly_targets").get_values(
-    value_render_option=ValueRenderOption.unformatted)
+
+def get_minutes_data():
+    '''
+    fetches data from minutes worksheet
+    '''
+    return minutes.get_values(
+        value_render_option=ValueRenderOption.unformatted)
+
+
+def most_recent_targets():
+    '''
+    returns the current set of user's targets 
+    (most recent row in targets worksheet)
+    '''
+    return targets.get_values(
+        value_render_option=ValueRenderOption.unformatted)[-1]
+
 
 # fetches the exercise names from the headings of the 'minutes' Google
 # sheet as a list
@@ -171,7 +184,7 @@ def view_progress_this_week():
     # list for all the minutes entries for the current week for exercise 2
     ex_2_minutes_this_week = []
 
-    for row in minutes_data:
+    for row in get_minutes_data():
         if row[5] == this_week:
             ex_0_minutes_this_week.append(row[0])
             ex_1_minutes_this_week.append(row[1])
@@ -187,10 +200,8 @@ def view_progress_this_week():
         ex_1_total_this_week,
         ex_2_total_this_week]
 
-    most_recent_targets = targets_data[-1]
-
     for exercise, minutes, target in zip(
-            exercise_types, minutes_this_week_list, most_recent_targets):
+            exercise_types, minutes_this_week_list, most_recent_targets()):
         minutes_to_go = target - minutes
         if target > minutes:
             print(
@@ -212,18 +223,17 @@ def print_current_targets():
     '''
     Displays user's current weekly targets
     '''
-    most_recent_targets = targets_data[-1]
 
     print("Your current weekly targets are: ")
-    for exercise, target in zip(exercise_types, most_recent_targets):
+    for exercise, target in zip(exercise_types, most_recent_targets()):
         print(f"{(exercise.capitalize())}: {target} minutes per week")
 
 
 def edit_targets():
-    """
+    '''
     Takes user input for new targets, adds them to a list
     and appends it to the 'targets' spreadsheet
-    """
+    '''
 
     updated_targets = []
 
