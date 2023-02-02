@@ -46,7 +46,7 @@ def enter_exercise_type():
     Collect input from user about which type of exercise they want to add minutes to
     '''
     while True:
-        exercise = input(f"Which exercise did you do today? ({exercise_names}): \n").lower()
+        exercise = input(f"Which exercise did you do today? ({exercise_names}): \n").lower().strip()
         if exercise in exercise_types:
             return exercise
         else:
@@ -207,7 +207,7 @@ def view_previous_weeks():
     """
 
     while True:
-        exercise = input(f"Which exercise would you like to view? ({exercise_names}) \n").lower()
+        exercise = input(f"Which exercise would you like to view? ({exercise_names}) \n").lower().strip()
         if exercise == exercise_types[0]:
             column_number = 0
             break
@@ -267,7 +267,7 @@ def show_options():
     '''
     while True:
         print("What would you like to do today? Please select a number:")
-        option = input("1. Enter minutes \n2. View progress this week \n3. Update targets \n4. View last four weeks \n5. Exit \n")
+        option = input("1. Enter minutes \n2. View progress this week \n3. Update targets \n4. View last four weeks \n5. Exit \n").strip()
 
         if option == "1":
             enter_exercise_data()
