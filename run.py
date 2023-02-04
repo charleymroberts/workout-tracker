@@ -39,7 +39,7 @@ def most_recent_targets():
 
 # fetches the exercise names from the headings of the 'minutes' Google
 # sheet as a list
-exercise_types = minutes_data[0][0:3]
+exercise_types = get_minutes_data()[0][0:3]
 exercise_names = ', '.join(exercise_types)  # string of the exercise names
 
 entry = {
@@ -64,6 +64,7 @@ def greet_user():
     USERNAME is set to global so that the
     close_program function can access it
     '''
+    print("Welcome to Workout Tracker")
     USERNAME = input("Please enter your name: \n")
     print(f"Hi, {USERNAME}, good to see you today!\n")
 
@@ -316,7 +317,7 @@ def close_program():
     '''
     Ends program
     '''
-    print(f"Exiting workout tracker. See you soon, {USERNAME}!")
+    print(f"Exiting Workout Tracker. See you soon, {USERNAME}!")
 
 
 # User menu:
@@ -349,8 +350,8 @@ def show_options():
         else:
             print("Please enter a number 1-5")
 
-# Main function to run program:
 
+# Main function to run program:
 
 def main():
     '''
