@@ -24,6 +24,32 @@ The program could be used by participants in any sport or activity - a real-life
 
 ## What it does
 
+On opening the program, the user can choose to do one of four things (or five including exiting the program):
+
+1. Enter minutes
+
+This option allows the user to input the number of minutes they have spent on their chosen exercise(s). They can choose to enter minutes just for one type of exercise, or for more than one.  After each entry, the program asks the user if they would like to enter more exercise or to exit that option.
+
+The program currently assumes that the user is entering 'today's' exercise: a future version of the program could allow the user to select the date on which the exercise was completed.
+
+2. View progress this week
+
+This option displays a list of the user's exercise types, stating how many minutes they have done so far, what their weekly target is, and either the encouragement to 'keep going!' if they have not yet met their target or the message 'well done!' if they have.  
+
+The program assumes the current week begins on a Monday.  This is because gym usage statistics (such as Google's 'popular times' feature) indicate that gym usage tends to be highest on a Monday and gradually decreases throughout the week towards the end of the weekend, so beginning the week on a Monday is most likely to be relevant to users.
+
+(screenshot)
+
+3. Update targets
+
+Here the user can input new weekly targets for each of their exercises.
+
+4. View last four weeks
+
+The user picks an exercise, and the program displays the total number of minutes the user entered for that exercise for each of the four preceding whole weeks.  (Again, the program counts a whole week as the time period Monday-Sunday.)
+
+After each option, the program returns to the main menu, where users can choose to use another function or to exit the program.
+
 ## Features
 
 ### Existing features

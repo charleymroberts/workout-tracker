@@ -252,7 +252,7 @@ def edit_targets():
                 print("Please enter a number")
 
     targets.append_row(updated_targets)
-    print("Targets updated!")
+    print("Targets updated! \n")
 
 
 # Option Four: view minutes completed for each
@@ -308,7 +308,7 @@ def view_previous_weeks():
     print(f"Last week you did {one_sum} minutes of {exercise}")
     print(f"Two weeks ago you did {two_sum} minutes of {exercise}")
     print(f"Three weeks ago you did {three_sum} minutes of {exercise}")
-    print(f"Four weeks ago you did {four_sum} minutes of {exercise}")
+    print(f"Four weeks ago you did {four_sum} minutes of {exercise}\n")
 
 
 # Option Five: Exit program
