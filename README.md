@@ -102,12 +102,25 @@ A future version of this program could also include:
 
 ## Testing
 
-### Testing done throughout the development process
+### Testing carried out throughout the development process
+
+1. Continuous checking such as printing the values returned from functions and the contents of lists to the terminal to check that each part of the code was operating as intended.
+
+2. Running the program in the terminal as each section was added to check it worked as intended
+
+3. Checking the Google spreadsheet to make sure the correct data was being added by the program
+
+4. Attempting to break the program by running the program and inputting the wrong type of data, making sure the program would only accept the correct type of data and adding error messages to the user for when data of the wrong type was added. Adding the .lowercase and .strip functions to the user inputs where required to change string inputs to all lowercase and remove whitespace.
+
+5. Running the program once deployed in Heroku and going through all the menu options to check they were all working.
 
 ### Bugs (fixed/remaining)
 
-(Needing to format Google Sheet to be number rather than automatic data type?
-(List vs dictionary?)
+1. I was getting some error messages from the functions that were using data taken from the Google spreadsheet, such as saying that I was trying to add a string and an integer together. I fixed this by going to the Google worksheet and changing the formatting for the relevant cells from 'automatic' to 'number', as it seemed to be recording some numbers as strings.
+
+2. Originally I had planned to have the user's data from Option 1 (where the user adds today's minutes of exercise) into a list to append to the Google worksheet. This did not allow an obvious option for recording zero minutes if the user did not wish to enter minutes for every form of exercise. 
+
+I then changed to using a dictionary to store the user input data initially, with default values set to zero, and then making the dictionary values into a list to append to the Google worksheet.  This allowed me to input a value for every cell, including zero if the user did not add any minutes for that exercise, in order to make sure the correct values were entered into the correct rows.
 
 ### Validator testing
 
@@ -115,15 +128,13 @@ The code was passed through Code Institute's Python Linter https://pep8ci.heroku
 
 ![Python Linter screenshot](images/linter-screenshot.png)
 
-
-
 ## Deployment process
 
 ## Technologies used
 
-Python 3
+Python 3 (written in VSCode)
 
-Heroku
+Heroku to deploy the program in a web browser
 
 Google Sheets for storing data inputted by the user
 
@@ -135,34 +146,6 @@ Heroku template provided by Code Institute
 
 Instructions on connecting Google Sheets to VSCode taken from Code Institute's 'Love Sandwiches' walkthrough project
 
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+docs.python.org for guidance on using the datetime module: https://docs.python.org/3/library/datetime.html?highlight=datetime#module-datetime
 
-Welcome Charley Roberts,
-
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
-
-## Reminders
-
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
------
-Happy coding!
+Ideas for how to implement the main menu from this post on stackoverflow: https://stackoverflow.com/questions/41718538/how-do-i-insert-a-restart-game-option
