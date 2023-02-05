@@ -28,29 +28,29 @@ On opening the program, the user can choose to do one of four things (or five in
 
 1. Enter minutes
 
-This option allows the user to input the number of minutes they have spent on their chosen exercise(s). They can choose to enter minutes just for one type of exercise, or for more than one.  After each entry, the program asks the user if they would like to enter more exercise or to exit that option.
+    This option allows the user to input the number of minutes they have spent on their chosen exercise(s). They can choose to enter minutes just for one type of exercise, or for more than one.  After each entry, the program asks the user if they would like to enter more exercise or to exit that option.
 
-The program currently assumes that the user is entering 'today's' exercise: a future version of the program could allow the user to select the date on which the exercise was completed.
+    The program currently assumes that the user is entering 'today's' exercise: a future version of the program could allow the user to select the date on which the exercise was completed.
 
 ![add minutes screenshot](images/option-1-screenshot.png)
 
 2. View progress this week
 
-This option displays a list of the user's exercise types, stating how many minutes they have done so far in the current week, what their weekly target is, and either the encouragement to 'keep going!' if they have not yet met their target or the message 'well done!' if they have.  
+    This option displays a list of the user's exercise types, stating how many minutes they have done so far in the current week, what their weekly target is, and either the encouragement to 'keep going!' if they have not yet met their target or the message 'well done!' if they have.  
 
-The program assumes that each week begins on a Monday.  This is because gym usage statistics (such as Google's 'Popular Times' feature) indicate that gym usage tends to be highest on a Monday and gradually decreases throughout the week towards the end of the weekend, so beginning the week on a Monday is most likely to be relevant to users.
+    The program assumes that each week begins on a Monday.  This is because gym usage statistics (such as Google's 'Popular Times' feature) indicate that gym usage tends to be highest on a Monday and gradually decreases throughout the week towards the end of the weekend, so beginning the week on a Monday is most likely to be relevant to users.
 
 ![view progress screenshot](images/option-2-screenshot.png)
 
 3. Update targets
 
-Here the user can input new weekly targets for each of their exercises.
+    Here the user can input new weekly targets for each of their exercises.
 
 ![update targets screenshot](images/option-3-screenshot.png)
 
 4. View last four weeks
 
-The user picks an exercise, and the program displays the total number of minutes the user entered for that exercise for each of the four preceding whole weeks.  (Again, the program counts a whole week as the time period Monday-Sunday.)
+    The user picks an exercise, and the program displays the total number of minutes the user entered for that exercise for each of the four preceding whole weeks.  (Again, the program counts a whole week as the time period Monday-Sunday.)
 
 ![last four weeks screenshot](images/option-4-screenshot.png)
 
@@ -76,6 +76,8 @@ After each option, the program returns to the main menu, where users can choose 
 
 5. Gives a personalised greeting (after the user has entered their name) on opening and exiting the program
 
+![greetings screenshot](images/greetings-screenshot.png)
+
 6. Gives messages of encouragement dependent on how many minutes of exercise the user has completed, for example, "Well done! You rock!" if the user enters a number of minutes greater than 15, or, "Good job! Every little helps!" if the number of minutes entered is less than 15 (but greater than 0).
 
 ### Design
@@ -99,6 +101,7 @@ A future version of this program could also include:
 1. The ability to select a date on which the exercise was completed (rather than just using today's date as the program currently does).
 2. The ability for users to share their updates with friends also using the same app, perhaps in a newsfeed style area.
 3. The ability to track more details about each workout, such as types of weightlifting exercises and number of sets and reps completed in a weight training workout.
+4. Exploring the feasability of linking with other apps to import exercise data (such as Runmeter) or exporting data to general fitness tracking apps (such as myfitnesspal).
 
 ## Testing
 
@@ -114,21 +117,36 @@ A future version of this program could also include:
 
 5. Running the program once deployed in Heroku and going through all the menu options to check they were all working.
 
-### Bugs (fixed/remaining)
+### Bugs fixed
 
-1. I was getting some error messages from the functions that were using data taken from the Google spreadsheet, such as saying that I was trying to add a string and an integer together. I fixed this by going to the Google worksheet and changing the formatting for the relevant cells from 'automatic' to 'number', as it seemed to be recording some numbers as strings.
+1. I was getting some error messages from the functions that were using data taken from the Google spreadsheet, saying that I was trying to add a string and an integer together.  As the spreadsheet seemed to be recording some numbers as strings, I initially attemped to fix this by going to the Google worksheet and changing the formatting for the relevant cells from 'automatic' to 'number'.
+
+    When this did not solve the problem, a more detailed search of the [gspread documentation](https://docs.gspread.org/en/v5.7.0/api/models/worksheet.html#gspread.worksheet.Worksheet.get_values) showed that the get_values method returns values as strings by default, and that passing `ValueRenderOption.unformatted` to the `get_values` method would avoid the string formatting and return the original values that had been entered (in this case numbers).
 
 2. Originally I had planned to have the user's data from Option 1 (where the user adds today's minutes of exercise) into a list to append to the Google worksheet. This did not allow an obvious option for recording zero minutes if the user did not wish to enter minutes for every form of exercise. 
 
-I then changed to using a dictionary to store the user input data initially, with default values set to zero, and then making the dictionary values into a list to append to the Google worksheet.  This allowed me to input a value for every cell, including zero if the user did not add any minutes for that exercise, in order to make sure the correct values were entered into the correct rows.
+    I then changed to using a dictionary to store the user input data initially, with default values set to zero, and then making the dictionary values into a list to append to the Google worksheet.  This allowed me to input a value for every cell, including zero if the user did not add any minutes for that exercise, in order to make sure the correct values were entered into the correct rows.
 
 ### Validator testing
 
-The code was passed through Code Institute's Python Linter https://pep8ci.herokuapp.com/ with no remaining issues. 
+The code was passed through [Code Institute's Python Linter](https://pep8ci.herokuapp.com/) with no remaining issues. 
 
 ![Python Linter screenshot](images/linter-screenshot.png)
 
 ## Deployment process
+
+The project was deployed to Heroku using Code Institute's mock terminal template.
+
+The steps for this were:
+
+- Go to Heroku dashboard
+- Click 'Create new app'
+- Enter a name for the app, and select your region
+- Go to 'Settings'
+- Go to Config Vars > type 'CREDS' in the 'KEY field and paste in the contents of the creds.json file from VSCode > click 'Add'
+- Still in Config Vars, create a new entry with 'PORT' in the 'KEY' field and '8000' in the 'VALUE' field, and click 'Add'
+- Go to 'Add Buildpack', add buildpacks for Python and node.js (in that order)
+- Select Github as the deployment method
 
 ## Technologies used
 
@@ -146,6 +164,8 @@ Heroku template provided by Code Institute
 
 Instructions on connecting Google Sheets to VSCode taken from Code Institute's 'Love Sandwiches' walkthrough project
 
-docs.python.org for guidance on using the datetime module: https://docs.python.org/3/library/datetime.html?highlight=datetime#module-datetime
+docs.python.org for [guidance on using the datetime module](https://docs.python.org/3/library/datetime.html?highlight=datetime#module-datetime)
 
-Ideas for how to implement the main menu from this post on stackoverflow: https://stackoverflow.com/questions/41718538/how-do-i-insert-a-restart-game-option
+Ideas for how to implement the main menu from [this post on stackoverflow](https://stackoverflow.com/questions/41718538/how-do-i-insert-a-restart-game-option)
+
+Gspread documentation for [instructions on returning data that is not formatted as a string](https://docs.gspread.org/en/v5.7.0/api/models/worksheet.html#gspread.worksheet.Worksheet.get_values)
