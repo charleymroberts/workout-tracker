@@ -32,21 +32,27 @@ This option allows the user to input the number of minutes they have spent on th
 
 The program currently assumes that the user is entering 'today's' exercise: a future version of the program could allow the user to select the date on which the exercise was completed.
 
+![add minutes screenshot](images/option-1-screenshot.png)
+
 2. View progress this week
 
-This option displays a list of the user's exercise types, stating how many minutes they have done so far, what their weekly target is, and either the encouragement to 'keep going!' if they have not yet met their target or the message 'well done!' if they have.  
+This option displays a list of the user's exercise types, stating how many minutes they have done so far in the current week, what their weekly target is, and either the encouragement to 'keep going!' if they have not yet met their target or the message 'well done!' if they have.  
 
-The program assumes the current week begins on a Monday.  This is because gym usage statistics (such as Google's 'popular times' feature) indicate that gym usage tends to be highest on a Monday and gradually decreases throughout the week towards the end of the weekend, so beginning the week on a Monday is most likely to be relevant to users.
+The program assumes that each week begins on a Monday.  This is because gym usage statistics (such as Google's 'Popular Times' feature) indicate that gym usage tends to be highest on a Monday and gradually decreases throughout the week towards the end of the weekend, so beginning the week on a Monday is most likely to be relevant to users.
 
-(screenshot)
+![view progress screenshot](images/option-2-screenshot.png)
 
 3. Update targets
 
 Here the user can input new weekly targets for each of their exercises.
 
+![update targets screenshot](images/option-3-screenshot.png)
+
 4. View last four weeks
 
 The user picks an exercise, and the program displays the total number of minutes the user entered for that exercise for each of the four preceding whole weeks.  (Again, the program counts a whole week as the time period Monday-Sunday.)
+
+![last four weeks screenshot](images/option-4-screenshot.png)
 
 After each option, the program returns to the main menu, where users can choose to use another function or to exit the program.
 
