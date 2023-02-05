@@ -111,7 +111,11 @@ A future version of this program could also include:
 
 ### Validator testing
 
-The code was passed through Code Institute's Python Linter https://pep8ci.herokuapp.com/ with no remaining issues. (screenshot?)
+The code was passed through Code Institute's Python Linter https://pep8ci.herokuapp.com/ with no remaining issues. 
+
+![Python Linter screenshot](images/linter-screenshot.png)
+
+
 
 ## Deployment process
 
