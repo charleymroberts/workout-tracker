@@ -60,11 +60,45 @@ After each option, the program returns to the main menu, where users can choose 
 
 ### Existing features
 
+1. Allows the user to enter data (in Option 1 'Enter minutes' and Option 3 'Update targets')
+
+2. Stores the user's data in a connected Google Sheet
+
+3. Fetches and performs calculations on the user's data, including:
+    - total number of minutes of each exercise entered so far this week
+    - number of minutes to go until the user hits their weekly target
+    - total number of minutes of each exercise entered in the last four weeks
+
+4. Input validation:
+    - where a number is required, checks that the user has entered a number
+    - on the main menu, checks that the number is between 1 and 5
+    - where a string is required, checks the user has entered a string that matches the name of one of their exercises (with lowercase and strip functions called on the user input to convert any capital letters to lowercase and remove whitespace)
+
+5. Gives a personalised greeting (after the user has entered their name) on opening and exiting the program
+
+6. Gives messages of encouragement dependent on how many minutes of exercise the user has completed, for example, "Well done! You rock!" if the user enters a number of minutes greater than 15, or, "Good job! Every little helps!" if the number of minutes entered is less than 15 (but greater than 0).
+
 ### Design
+
+The front end design for the Heroku template was provided by Code Institute. I chose to add some additional text in the html to explain to the user what the program is and does. As this was a purely Python project I didn't feel that this required any additional styling.
+
+The only 'design' decisions I needed to make within the Python code was the addition of new line breaks to space out the text in the terminal in places to make it slightly easier to read.
 
 ### Features that would be added for real-world deployment
 
+If this project were to be deployed as a real-world app, it would require the following features:
+
+1. Ability for the user to create an account and log in.
+2. Ability for the user to choose or enter the names of the exercise(s) they wanted to track.
+3. More secure data storage than Google Sheets.
+4. A graphical user interface. This program would be particularly suited to being deployed as a mobile app, so that users could enter their workout details on their phone shortly after having completed it.
+
 ### Future features
+
+A future version of this program could also include:
+1. The ability to select a date on which the exercise was completed (rather than just using today's date as the program currently does).
+2. The ability for users to share their updates with friends also using the same app, perhaps in a newsfeed style area.
+3. The ability to track more details about each workout, such as types of weightlifting exercises and number of sets and reps completed in a weight training workout.
 
 ## Testing
 
