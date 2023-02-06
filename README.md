@@ -127,6 +127,10 @@ A future version of this program could also include:
 
     I then changed to using a dictionary to store the user input data initially, with default values set to zero, and then making the dictionary values into a list to append to the Google worksheet.  This allowed me to input a value for every cell, including zero if the user did not add any minutes for that exercise, in order to make sure the correct values were entered into the correct rows.
 
+3. I had been generating week numbers using the week number provided by the isocalendar method, which I then used in the `view_previous_weeks` function to identify data submitted within the four preceding weeks, to show the user their total minutes for the last four weeks.  I realised that this would cause problems at the start of a new calendar year: when the week number goes from 52 (or 53) one week to 1 the following week (at the start of a new year), the code would no longer work.  
+
+    I found a solution by searching stackoverflow (URL of the solution I used in the credits section), which involves generating a week number by choosing a fixed date in the past, generating the current date, subtracting the fixed date from the current date, using `.days` to calculate the number of days between the two dates, then floor dividing this number by 7 to generate a whole number of weeks between the two dates. This whole number is then used as the current week number.
+
 ### Validator testing
 
 The code was passed through [Code Institute's Python Linter](https://pep8ci.herokuapp.com/) with no remaining issues. 
