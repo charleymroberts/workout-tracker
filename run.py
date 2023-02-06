@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import date
 
 import gspread
 from gspread.utils import ValueRenderOption
@@ -36,6 +37,18 @@ def most_recent_targets():
     return targets.get_values(
         value_render_option=ValueRenderOption.unformatted)[-1]
 
+def generate_week_number():
+    '''
+    Generates a week number for the current week, 
+    starting counting from a fixed date in the past
+    '''
+    initial_date = date(2022, 12, 26)
+    todays_date = datetime.now().date()
+    this_week = (todays_date - initial_date).days//7 
+    return this_week
+    '''
+    this segment of code taken from stackoverflow: see credits of readme for URL
+    '''
 
 # fetches the exercise names from the headings of the 'minutes' Google
 # sheet as a list
@@ -152,12 +165,23 @@ def add_datetime():
     '''
     the_date = datetime.now().date()
     the_day = datetime.now().weekday()
-    this_week = datetime.now().isocalendar()[1]
+    this_week = generate_week_number()
+
+    # initial_date = date(2022, 12, 26)
+    # todays_date = datetime.now().date()
+    # this_week = (todays_date - initial_date).days//7
+     '''
+    this segment of code taken from stackoverflow: see credits of readme for URL
+    '''
 
     entry['todays_date'] = str(the_date)
     entry['day_of_week'] = the_day
     entry['week_number'] = this_week
-
+    '''
+    date and day of week not currently required for functioning 
+    of this progam but have left them in as they may be useful 
+    to use in future versions of the program
+    '''
 
 def add_data_to_worksheet():
     '''
@@ -176,7 +200,9 @@ def view_progress_this_week():
     during the current week and compares the total with their targets
     '''
 
-    this_week = datetime.now().isocalendar()[1]
+    # this_week = datetime.now().isocalendar()[1] #also date stuff <-----
+
+    this_week = generate_week_number()
 
     # list for all the minutes entries for the current week for exercise 0
     ex_0_minutes_this_week = []
@@ -279,16 +305,21 @@ def view_previous_weeks():
             break
         else:
             print(f"Please enter one of: {exercise_names}")
+    
+    minutes_data = get_minutes_data()
+    this_week = generate_week_number()
 
-    minutes_data = minutes.get_values(
-        value_render_option=ValueRenderOption.unformatted)
-
-    this_week = datetime.now().isocalendar()[1]
+    # initial_date = date(2022, 12, 26)
+    # todays_date = datetime.now().date()
+    # this_week = (todays_date - initial_date).days//7 
+    '''
+    this segment of code taken from stackoverflow: see credits of readme for URL
+    '''
 
     one_week_ago = []
     two_weeks_ago = []
     three_weeks_ago = []
-    four_weeks_ago = []  # also what to do when four weeks ago was last year
+    four_weeks_ago = []  
 
     for row in minutes_data:
         if row[5] == this_week - 1:
