@@ -131,6 +131,10 @@ A future version of this program could also include:
 
     I found a solution by searching stackoverflow (URL of the solution I used in the credits section), which involves generating a week number by choosing a fixed date in the past, generating the current date, subtracting the fixed date from the current date, using `.days` to calculate the number of days between the two dates, then floor dividing this number by 7 to generate a whole number of weeks between the two dates. This whole number is then used as the current week number.
 
+### Bugs remaining
+
+No remaining bugs have been found.
+
 ### Validator testing
 
 The code was passed through [Code Institute's Python Linter](https://pep8ci.herokuapp.com/) with no remaining issues. 
