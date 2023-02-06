@@ -164,6 +164,8 @@ Heroku template provided by Code Institute
 
 Instructions on connecting Google Sheets to VSCode taken from Code Institute's 'Love Sandwiches' walkthrough project
 
+Code segment for generating a week number for the current week, used in generate_week_number function on line 40, taken from [this comment on stackoverflow](https://stackoverflow.com/questions/14191832/how-to-calculate-difference-between-two-dates-in-weeks-in-python/48375820#48375820) 
+
 docs.python.org for [guidance on using the datetime module](https://docs.python.org/3/library/datetime.html?highlight=datetime#module-datetime)
 
 Ideas for how to implement the main menu from [this post on stackoverflow](https://stackoverflow.com/questions/41718538/how-do-i-insert-a-restart-game-option)
