@@ -38,7 +38,7 @@ On opening the program, the user can choose to do one of four things (or five in
 
     This option displays a list of the user's exercise types, stating how many minutes they have done so far in the current week, what their weekly target is, and either the encouragement to 'keep going!' if they have not yet met their target or the message 'well done!' if they have.  
 
-    The program assumes that each week begins on a Monday.  This is because gym usage statistics (such as Google's 'Popular Times' feature) indicate that gym usage tends to be highest on a Monday and gradually decreases throughout the week towards the end of the weekend, so beginning the week on a Monday is most likely to be relevant to users.
+    Each week begins on a Monday.  This is a deliberate decision because gym usage statistics (such as Google's 'Popular Times' feature) indicate that gym usage tends to be highest on a Monday and gradually decreases throughout the week towards the end of the weekend, so beginning the week on a Monday is most likely to be relevant to users.
 
 ![view progress screenshot](images/option-2-screenshot.png)
 
@@ -129,7 +129,7 @@ A future version of this program could also include:
 
 3. I had been generating week numbers using the week number provided by the isocalendar method, which I then used in the `view_previous_weeks` function to identify data submitted within the four preceding weeks, to show the user their total minutes for the last four weeks.  I realised that this would cause problems at the start of a new calendar year: when the week number goes from 52 (or 53) one week to 1 the following week (at the start of a new year), the code would no longer work.  
 
-    I found a solution by searching stackoverflow (URL of the solution I used in the credits section), which involves generating a week number by choosing a fixed date in the past, generating the current date, subtracting the fixed date from the current date, using `.days` to calculate the number of days between the two dates, then floor dividing this number by 7 to generate a whole number of weeks between the two dates. This whole number is then used as the current week number.
+    I found a solution by searching stackoverflow (URL of the solution I used in the credits section), which involves generating a week number by choosing a fixed date in the past, generating the current date, subtracting the fixed date from the current date, using `.days` to calculate the number of days between the two dates, then floor dividing this number by 7 to generate a whole number of weeks between the two dates. This whole number is then used as the current week number. I chose a fixed date that was a Monday so that the weeks would begin on Mondays.
 
 ### Bugs remaining
 

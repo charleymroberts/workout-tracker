@@ -41,7 +41,9 @@ def most_recent_targets():
 def generate_week_number():
     '''
     Generates a week number for the current week,
-    starting counting from a fixed date in the past
+    starting counting from a fixed date in the past.
+    initial_date is a Monday so that the weeks 
+    begin on Mondays.
     '''
     initial_date = date(2022, 12, 26)
     todays_date = datetime.now().date()
@@ -349,9 +351,9 @@ def show_options():
         print("What would you like to do today? Please select a number:")
         print("1: Enter minutes")
         print("2: View progress this week")
-        print("3. Update targets")
-        print("4. View last four weeks")
-        print("5. Exit")
+        print("3: Update targets")
+        print("4: View last four weeks")
+        print("5: Exit")
         option = input().strip()
 
         if option == "1":
