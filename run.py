@@ -83,9 +83,11 @@ def greet_user():
     close_program function can access it
     '''
     print("Welcome to Workout Tracker")
-    USERNAME = input("Please enter your name: \n")
+    while True:
+        USERNAME = input("Please enter your name: \n").strip()
+        if USERNAME:
+            break
     print(f"Hi, {USERNAME}, good to see you today!\n")
-
 
 # Option One: Add minutes
 
