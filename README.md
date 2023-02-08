@@ -1,6 +1,6 @@
 # Workout Tracker
 
-Workout Tracker is a command-line Python program which enables users to record and view the amount of time they spend doing different types of exercise. Users can enter the number of minutes they spent on each workout, set themselves weekly targets for each type of exercise and view how much progress they have made towards meeting the current week's target. They can also choose to view how much time they spent on each exercise over the preceeding four weeks.
+Workout Tracker is a command-line Python program which enables users to record and view the amount of time they spend doing different types of exercise. Users can enter the number of minutes they spent on each workout, set themselves weekly targets for each type of exercise and view how much progress they have made towards meeting the current week's target. They can also choose to view how much time they spent on each exercise over the preceding four weeks.
 
 It is deployed via Heroku and displayed to the user in a web browser using Code Institute's mock terminal template.
 
@@ -101,7 +101,7 @@ A future version of this program could also include:
 1. The ability to select a date on which the exercise was completed (rather than just using today's date as the program currently does).
 2. The ability for users to share their updates with friends also using the same app, perhaps in a newsfeed style area.
 3. The ability to track more details about each workout, such as types of weightlifting exercises and number of sets and reps completed in a weight training workout.
-4. Exploring the feasability of linking with other apps to import exercise data (such as Runmeter) or exporting data to general fitness tracking apps (such as myfitnesspal).
+4. Exploring the feasibility of linking with other apps to import exercise data (such as Runmeter) or exporting data to general fitness tracking apps (such as myfitnesspal).
 
 ## Testing
 
@@ -119,17 +119,17 @@ A future version of this program could also include:
 
 ### Bugs fixed
 
-1. I was getting some error messages from the functions that were using data taken from the Google spreadsheet, saying that I was trying to add a string and an integer together.  As the spreadsheet seemed to be recording some numbers as strings, I initially attemped to fix this by going to the Google worksheet and changing the formatting for the relevant cells from 'automatic' to 'number'.
+1. I was getting some error messages from the functions that were using data taken from the Google spreadsheet, saying that I was trying to add a string and an integer together.  As the spreadsheet seemed to be recording some numbers as strings, I initially attempted to fix this by going to the Google worksheet and changing the formatting for the relevant cells from 'automatic' to 'number'.
 
-    When this did not solve the problem, a more detailed search of the [gspread documentation](https://docs.gspread.org/en/v5.7.0/api/models/worksheet.html#gspread.worksheet.Worksheet.get_values) showed that the get_values method returns values as strings by default, and that passing `ValueRenderOption.unformatted` to the `get_values` method would avoid the string formatting and return the original values that had been entered (in this case numbers).
+    When this did not solve the problem, a more detailed search of the [gspread documentation](https://docs.gspread.org/en/v5.7.0/api/models/worksheet.html#gspread.worksheet.Worksheet.get_values) showed that the `get_values` method returns values as strings by default, and that passing `ValueRenderOption.unformatted` to the `get_values` method would avoid the string formatting and return the original values that had been entered (in this case numbers).
 
 2. Originally I had planned to have the user's data from Option 1 (where the user adds today's minutes of exercise) into a list to append to the Google worksheet. This did not allow an obvious option for recording zero minutes if the user did not wish to enter minutes for every form of exercise. 
 
-    I then changed to using a dictionary to store the user input data initially, with default values set to zero, and then making the dictionary values into a list to append to the Google worksheet.  This allowed me to input a value for every cell, including zero if the user did not add any minutes for that exercise, in order to make sure the correct values were entered into the correct rows.
+    I then changed to using a dictionary to store the user input data initially, with default values set to zero, and then making the dictionary values into a list to append to the Google worksheet.  This allowed me to input a value for every cell, including zero if the user did not add any minutes for that exercise, in order to make sure the correct values were entered into the correct columns.
 
-3. I had been generating week numbers using the week number provided by the isocalendar method, which I then used in the `view_previous_weeks` function to identify data submitted within the four preceding weeks, to show the user their total minutes for the last four weeks.  I realised that this would cause problems at the start of a new calendar year: when the week number goes from 52 (or 53) one week to 1 the following week (at the start of a new year), the code would no longer work.  
+3. I had been generating week numbers using the week number provided by the `isocalendar` method of `datetime.date`, which I then used in the `view_previous_weeks` function to identify data submitted within the four preceding weeks, to show the user their total minutes for the last four weeks.  I realised that this would cause problems at the start of a new calendar year: when the week number goes from 52 (or 53) one week to 1 the following week (at the start of a new year), the code would no longer work.  
 
-    I found a solution by searching stackoverflow (URL of the solution I used in the credits section), which involves generating a week number by choosing a fixed date in the past, generating the current date, subtracting the fixed date from the current date, using `.days` to calculate the number of days between the two dates, then floor dividing this number by 7 to generate a whole number of weeks between the two dates. This whole number is then used as the current week number. I chose a fixed date that was a Monday so that the weeks would begin on Mondays.
+    I found a solution by searching stackoverflow (URL of the solution I used in the credits section), which involves generating a week number by choosing a fixed date in the past, generating the current date, subtracting the fixed date from the current date to get a `timedelta`, using `.days` to calculate the number of days between the two dates, then floor dividing this number by 7 to generate a whole number of weeks between the two dates. This whole number is then used as the current week number. I chose a fixed date that was a Monday so that the weeks would begin on Mondays.
 
 ### Bugs remaining
 
@@ -154,7 +154,7 @@ The steps for this were:
 - Go to Config Vars > type 'CREDS' in the 'KEY field and paste in the contents of the creds.json file from VSCode > click 'Add'
 - Still in Config Vars, create a new entry with 'PORT' in the 'KEY' field and '8000' in the 'VALUE' field, and click 'Add'
 - Go to 'Add Buildpack', add buildpacks for Python and node.js (in that order)
-- Select Github as the deployment method
+- Select GitHub as the deployment method
 
 ## Technologies used
 
@@ -164,7 +164,7 @@ Heroku to deploy the program in a web browser
 
 Google Sheets for storing data inputted by the user
 
-(plus HTML, CSS and Javascript within the Heroku template provided by Code Institute)
+(plus HTML, CSS and JavaScript within the Heroku template provided by Code Institute)
 
 ## Credits
 
@@ -172,10 +172,10 @@ Heroku template provided by Code Institute
 
 Instructions on connecting Google Sheets to VSCode taken from Code Institute's 'Love Sandwiches' walkthrough project
 
-Code segment for generating a week number for the current week, used in generate_week_number function on line 40, taken from [this comment on stackoverflow](https://stackoverflow.com/questions/14191832/how-to-calculate-difference-between-two-dates-in-weeks-in-python/48375820#48375820) 
+Code segment for generating a week number for the current week, used in `generate_week_number` function on line 40, taken from [this comment on Stack Overflow](https://stackoverflow.com/questions/14191832/how-to-calculate-difference-between-two-dates-in-weeks-in-python/48375820#48375820) 
 
 docs.python.org for [guidance on using the datetime module](https://docs.python.org/3/library/datetime.html?highlight=datetime#module-datetime)
 
-Ideas for how to implement the main menu from [this post on stackoverflow](https://stackoverflow.com/questions/41718538/how-do-i-insert-a-restart-game-option)
+Ideas for how to implement the main menu from [this post on Stack Overflow](https://stackoverflow.com/questions/41718538/how-do-i-insert-a-restart-game-option)
 
 Gspread documentation for [instructions on returning data that is not formatted as a string](https://docs.gspread.org/en/v5.7.0/api/models/worksheet.html#gspread.worksheet.Worksheet.get_values)
